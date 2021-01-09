@@ -5,12 +5,55 @@
 #include <stdlib.h>
 #include <stdio.h>
 using namespace std;
-void printBoard(char playerBoard[][10], const int SIZE) {
-	for (int i = 0;i < SIZE;i++) {
-		for (int j = 0;j < SIZE;j++) {
-			cout << setw(3) << playerBoard[i][j];
+
+void printBoard(char playerBoard[][10], const int size) {
+	cout << setw(70);
+	for (int i = 0;i < size + 1;i++) {
+		cout << char(201) << char(205) << char(205) << char(205) << char(187);
+	}
+	cout << endl;
+	cout << setw(70);
+	for (int i = 0;i < size + 1;i++) {
+		if (i == 0) {
+			cout << char(186) << " " << (char)0 << " " << char(186);
+		}
+		else {
+			cout << char(186) << " " << (char)(64 + i) << " " << char(186);
+		}
+	}
+	cout << endl;
+	cout << setw(70);
+	for (int i = 0;i < size + 1;i++) {
+		cout << char(200) << char(205) << char(205) << char(205) << char(188);
+	}
+	cout << endl;
+	for (int j = 0;j < size;j++) {
+		cout << setw(70);
+		for (int i = 0;i < size + 1;i++) {
+			cout << char(201) << char(205) << char(205) << char(205) << char(187);
 		}
 		cout << endl;
+		cout << setw(70);
+		for (int i = 0;i < size + 1;i++) {
+			if (i == 0) {
+				if (j + 49 == 58) {
+					cout << char(186) << setw(1) << "10" << " " << char(186);
+				}
+				else {
+					cout << char(186) << " " << (char)(j + 49) << " " << char(186);
+				}
+			}
+			else {
+				cout << char(186) << " " << playerBoard[j][i - 1] << " " << char(186);
+			}
+		}
+		cout << endl;
+		cout << setw(70);
+		for (int i = 0;i < size + 1;i++) {
+			cout << char(200) << char(205) << char(205) << char(205) << char(188);
+		}
+		cout << endl;
+
 	}
 }
 void printBlank() {
