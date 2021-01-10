@@ -5,26 +5,39 @@
 #include <stdlib.h>
 #include <stdio.h>
 using namespace std;
+//function that pushesh symbols to the right side
 void centerFromSide(int x) {
 	cout << "\n";
 	for (int i = 0;i < x;i++) {
 		cout << " ";
 	}
 }
+//function that pushes symbols from the top
 void centerFromTop() {
 	for (int i = 0;i < 20;i++) {
 		cout << "\n";
 	}
 }
+//function that prints the top half of  one row of the matrix
+void printTopHalfOfFirstRow(const int size) {
+	for (int i = 0;i < size + 1;i++) {
+		cout << char(201) << char(205) << char(205) << char(205) << char(187);
+	}
+}
+//function that prints the bottom half of one row of the matrix
+void printBotttomHalfOfFirstRow(const int size) {
+	for (int i = 0;i < size + 1;i++) {
+		cout << char(200) << char(205) << char(205) << char(205) << char(188);
+	}
+}
+//function that prints the board during the setup phase
 void printBoard(char playerBoard[][10], const int size) {
-	system("cls");//
+	system("cls");
 	for (int i = 0;i < 8;i++) {
 		cout << endl;
 	}
 	cout << setw(70);
-	for (int i = 0;i < size + 1;i++) {
-		cout << char(201) << char(205) << char(205) << char(205) << char(187);
-	}
+	printTopHalfOfFirstRow(size);
 	cout << endl;
 	cout << setw(70);
 	for (int i = 0;i < size + 1;i++) {
@@ -37,15 +50,11 @@ void printBoard(char playerBoard[][10], const int size) {
 	}
 	cout << endl;
 	cout << setw(70);
-	for (int i = 0;i < size + 1;i++) {
-		cout << char(200) << char(205) << char(205) << char(205) << char(188);
-	}
+	printBotttomHalfOfFirstRow(size);
 	cout << endl;
 	for (int j = 0;j < size;j++) {
 		cout << setw(70);
-		for (int i = 0;i < size + 1;i++) {
-			cout << char(201) << char(205) << char(205) << char(205) << char(187);
-		}
+		printTopHalfOfFirstRow(size);
 		cout << endl;
 		cout << setw(70);
 		for (int i = 0;i < size + 1;i++) {
@@ -63,13 +72,12 @@ void printBoard(char playerBoard[][10], const int size) {
 		}
 		cout << endl;
 		cout << setw(70);
-		for (int i = 0;i < size + 1;i++) {
-			cout << char(200) << char(205) << char(205) << char(205) << char(188);
-		}
+		printBotttomHalfOfFirstRow(size);
 		cout << endl;
 
 	}
 }
+//function that print the matrix during the attacking phase(guessing phase)
 void printAttackingPhaseMatrix(char playerBoard[][10], const int playerBoardSize, const char hit, const char miss, const char blank) {
 	system("cls");//
 	char symbol = '\0';
@@ -77,9 +85,7 @@ void printAttackingPhaseMatrix(char playerBoard[][10], const int playerBoardSize
 		cout << endl;
 	}
 	cout << setw(70);
-	for (int i = 0;i < playerBoardSize + 1;i++) {
-		cout << char(201) << char(205) << char(205) << char(205) << char(187);
-	}
+	printTopHalfOfFirstRow(playerBoardSize);
 	cout << endl;
 	cout << setw(70);
 	for (int i = 0;i < playerBoardSize + 1;i++) {
@@ -92,15 +98,11 @@ void printAttackingPhaseMatrix(char playerBoard[][10], const int playerBoardSize
 	}
 	cout << endl;
 	cout << setw(70);
-	for (int i = 0;i < playerBoardSize + 1;i++) {
-		cout << char(200) << char(205) << char(205) << char(205) << char(188);
-	}
+	printBotttomHalfOfFirstRow(playerBoardSize);
 	cout << endl;
 	for (int j = 0;j < playerBoardSize;j++) {
 		cout << setw(70);
-		for (int i = 0;i < playerBoardSize + 1;i++) {
-			cout << char(201) << char(205) << char(205) << char(205) << char(187);
-		}
+		printTopHalfOfFirstRow(playerBoardSize);
 		cout << endl;
 		cout << setw(70);
 		for (int i = 0;i < playerBoardSize + 1;i++) {
@@ -128,9 +130,7 @@ void printAttackingPhaseMatrix(char playerBoard[][10], const int playerBoardSize
 		}
 		cout << endl;
 		cout << setw(70);
-		for (int i = 0;i < playerBoardSize + 1;i++) {
-			cout << char(200) << char(205) << char(205) << char(205) << char(188);
-		}
+		printBotttomHalfOfFirstRow(playerBoardSize);
 		cout << endl;
 
 	}
@@ -140,18 +140,21 @@ void printAttackingPhaseMatrix(char playerBoard[][10], const int playerBoardSize
 void clearConsole() {
 	system("cls");
 }
-
+//function that transforms input from players perspective of the table into numbers that can work with matrices
 int transformInt(int z) {
 	int x = 0;
 	x = z - 1;
 	return x;
 }
+//function that transforms input from players perspective of the table into numbers that can work with matrices
 int  transformChar(char y) {
 	return (int)(y - 65);
 }
 
 
-
+//function that validates whether the inputed coordinates can turn into a ship on the board
+//checks whether there is a ship in the way or whether the current ship is going out of bounds
+// or whether there are some common angles with another ship
 bool validateShipPlacement(char playerBoard[][10], const int size, int x, int y, char direction, const int lenghtOfShip) {
 	bool flag = true;
 	if (direction == 'r') {
@@ -333,6 +336,7 @@ bool validateShipPlacement(char playerBoard[][10], const int size, int x, int y,
 	}
 	
 }
+//function that puts the ship on the board if there is enough space for it and all the other conditions are ok
 void inputSingleShip(char playerBoard[][10], const int size, int coordinate, char z, char c, char name,int lenght) {
 	int y = transformChar(z);
 	int x = transformInt(coordinate);
@@ -359,7 +363,7 @@ void inputSingleShip(char playerBoard[][10], const int size, int coordinate, cha
 		}
 	}
 }
-//cannot use '\0',h,m,s for ship names
+//function that loads the default config placement of all the ships
 void defaultPlacementConfig(char playerBoard[][10], const int size,const int SMALL_SHIP_LENGHT,const int MEDIUM_SHIP_LENGHT,const int LARGE_SHIP_LENGHT,const int MEGA_SHIP_LENGHT) {
 	inputSingleShip(playerBoard, size, 1, 'A', 'r', 'a', SMALL_SHIP_LENGHT);
 	inputSingleShip(playerBoard, size, 3, 'J', 'd', 'b', SMALL_SHIP_LENGHT);
@@ -372,6 +376,7 @@ void defaultPlacementConfig(char playerBoard[][10], const int size,const int SMA
 	inputSingleShip(playerBoard, size, 1, 'G', 'r', 'j', LARGE_SHIP_LENGHT);
 	inputSingleShip(playerBoard, size, 10, 'E', 'r', 'k', MEGA_SHIP_LENGHT);
 }
+//function that validates whether the given coordinates are actual ones from the board
 bool validateCoordinates(int x, char y,const int size) {
 	if (x > size || x < 0 || y < 'A' || y > 'J') {
 		return false;
@@ -380,6 +385,7 @@ bool validateCoordinates(int x, char y,const int size) {
 		return true;
 
 }
+//function that gets the name of a ship from our storage
 char shipNameGenerator(char namesOfShips[],const int size) {
 	char nameOfShip = 0;
 	for (int i = 0;i < size;i++) {
@@ -393,6 +399,7 @@ char shipNameGenerator(char namesOfShips[],const int size) {
 	return nameOfShip;
 
 }
+//function that lets the player choose the placement for his own ships
 void manualPlacementConfig(char playerBoard[][10],const int playerBoardSize,int uniqueShipsWithLenght[],const int uniqueShipSize,char nameOfShips[],const int nameOfShipsSize,const int center){
 	int verticalCooordinate = 0;
 	char horizontalCoordinate = 0;
@@ -427,8 +434,6 @@ void manualPlacementConfig(char playerBoard[][10],const int playerBoardSize,int 
 					break;
 
 				}
-				//clearConsole();
-				//printBoard(playerBoard, playerBoardSize);
 			}
 			else {
 				centerFromSide(center);
@@ -443,6 +448,8 @@ void manualPlacementConfig(char playerBoard[][10],const int playerBoardSize,int 
 		}
 	}
 }
+//function that checks whether our board is empty
+//whether there are any ships
 bool isEmpty(char playerBoard[][10], const int playerBoardSize) {
 	for (int i = 0;i < playerBoardSize;i++) {
 		for (int j = 0;j < playerBoardSize;j++) {
@@ -452,6 +459,7 @@ bool isEmpty(char playerBoard[][10], const int playerBoardSize) {
 	}
 	return true;
 }
+//function that checks whether a ship with such name exists
 bool shipExists(char playerBoard[][10], const int playerBoardSize,char correctShip){
 	for (int i = 0;i < playerBoardSize; i++) {
 		for (int j = 0;j < playerBoardSize;j++) {
@@ -462,7 +470,8 @@ bool shipExists(char playerBoard[][10], const int playerBoardSize,char correctSh
 	}
 	return false;
 }
-int shipRemovement(char playerBoard[][10], const int playerBoardSize, char shipsName) {//fix this function
+//function that removes a name with given name
+int shipRemovement(char playerBoard[][10], const int playerBoardSize, char shipsName) {
 	int shipsLenght = 0;
 	for (int i = 0;i < playerBoardSize;i++) {
 		for (int j = 0;j < playerBoardSize;j++) {
@@ -474,6 +483,7 @@ int shipRemovement(char playerBoard[][10], const int playerBoardSize, char ships
 	}
 	return shipsLenght;
 }
+//function that stores the name of a removed ship
 void addNameOfRemovedShip(char namesOfRemovedShips[], const int SIZE_OF_NAMES, char nameOfShip) {
 		for (int i = 0;i < SIZE_OF_NAMES;i++) {
 			if (namesOfRemovedShips[i] == '\0') {
@@ -483,6 +493,7 @@ void addNameOfRemovedShip(char namesOfRemovedShips[], const int SIZE_OF_NAMES, c
 	
 
 }
+//function that removes a ship from our board and stores the name in our storage
 void shipCorrection(char playerBoard[][10], const int playerBoardSize,int removedShips[],const int SIZE_OF_REMOVED_SHIPS,char namesOfRemovedShips[],const int sizeOfNamesOfRemovedShips,const int center) {
 	int shipsLenght = 0;
 	char correctShip = 0;
@@ -513,7 +524,8 @@ void shipCorrection(char playerBoard[][10], const int playerBoardSize,int remove
 			}
 		}
 }
-
+//function that checks whether a ship has sunk
+//It's sunk when there are no more parts of it on the board
 bool isShipSunken(char playerBoard[][10], const int playerBoardSize, char shipName){
 	for (int i = 0;i < playerBoardSize; i++) {
 		for (int j = 0;j < playerBoardSize;j++) {
@@ -524,18 +536,22 @@ bool isShipSunken(char playerBoard[][10], const int playerBoardSize, char shipNa
 	}
 	return true;
 }
+//function that reverses numbers from our perspective into the players perspective
+//It's needed in order to store last coordinates of attack
 char fromIntToChar(int x) {
 	char a = 0;
 	a = x + 65;
 	return a;
 }
+//function that reverses numbers from our perspective into the players perspective
+//It's needed in order to store last coordinates of attack
 int transformToReal(int x) {
 	int realX = 0;
 	realX = x + 1;
 	return realX;
 }
 
-
+//function attack that lets the player chose a coordinate on the board and attack his oponent
 void Attack(char playerBoard[][10], const int playerBoardSize, char hit,char missed,const char blank,bool &flag,int &lastX,char &lastY,const int center) {
 	int realVerticalCoordinate = 0;
 	int realHorizontalCoordinate = 0;
@@ -602,7 +618,7 @@ void Attack(char playerBoard[][10], const int playerBoardSize, char hit,char mis
 		clearConsole();
 	}
 }
-
+//void function that allows the user to attack according to his last coordinates of attack
 void AttackFromLastCoordinate(char playerBoard[][10], const int playerBoardSize, int &lastX, char &lastY,const char missed,const char hit,const char blank,bool &flag,const int center) {
 	printAttackingPhaseMatrix(playerBoard, playerBoardSize, hit, missed, blank);
 	int realLastX = transformInt(lastX);
@@ -610,7 +626,7 @@ void AttackFromLastCoordinate(char playerBoard[][10], const int playerBoardSize,
 	char direction = 0;
 	char shipName = 0;
 	centerFromSide(center);
-	cout << "Enter a direction coresponding to your last hit square\n";
+	cout << "Enter a direction coresponding to your last hit square :" << lastX <<" "<< lastY<<endl;
 	cin >> direction;
 	if (direction != 'd' and direction != 'u' and direction != 'l' and direction != 'r') {
 		centerFromSide(center);
@@ -685,16 +701,11 @@ void AttackFromLastCoordinate(char playerBoard[][10], const int playerBoardSize,
 		}
 		centerFromSide(center);
 		system("pause");
+		clearConsole();
 	}
 
 }
-void clearBoard(char playerBoard[][10], const int size) {
-	for (int i = 0;i < size;i++) {
-		for (int j = 0;j < size;j++) {
-			playerBoard[i][j] = '\0';
-		}
-	}
-}
+//function that returns whether the game was won by one of the 2 players
 bool gameWon(char playerBoard[][10], const int playerBoardSize) {
 	for (int i = 0;i < playerBoardSize;i++) {
 		for (int j = 0;j < playerBoardSize;j++) {
@@ -705,6 +716,7 @@ bool gameWon(char playerBoard[][10], const int playerBoardSize) {
 	}
 	return true;
 }
+//function that checks whether all ships have been placed
 bool allShipsPlaced(int playerRemovedShips[], const int sizeOfRemovedShips) {
 	for (int i = 0;i < sizeOfRemovedShips;i++) {
 		if (playerRemovedShips[i] != 0) {
@@ -723,6 +735,9 @@ int main() {
 	char player1ShipNames[SHIP_NAMES_SIZE] = { 'a', 'b' ,'c' ,'d' ,'e' ,'f' ,'g' ,'i' ,'j','k' };
 	char player2ShipNames[SHIP_NAMES_SIZE] = { 'a', 'b' ,'c' ,'d' ,'e' ,'f' ,'g' ,'i' ,'j','k' };
 	const int UNIQUE_SHIPS = 7;
+	//matrices that hold the ships of the 2 players
+	//the index of the matrix corresponds to the lenght of the ship
+	//and the element are the number of ships
 	int player1RemovedShips[UNIQUE_SHIPS] = { 0,0,4,3,2,0,1};
 	int player2RemovedShips[UNIQUE_SHIPS] = { 0,0,4,3,2,0,1};
 	bool player1Turn = true;
@@ -744,9 +759,9 @@ int main() {
 	int verticalCoordinate = 0;
 	char horizontalCoordinate = 0;
 	char direction = 0;
-	bool GameWon = 0;
+	bool GameWon = false;
 	const int center = 50;
-	//PLAYER1 entering ships
+	//Player one enters ships//
 	centerFromTop();
 	centerFromSide(center);
 	cout << "Welcome to the battleship game,Player 1!Lets get you started\n";
@@ -855,7 +870,7 @@ int main() {
 	centerFromSide(center);
 	cout << "Enter 1  or 2\n";
 	cin >> option;
-	//PLAYER2 enterting ships//////////////////////////////////////////////////////////////////////////////////////////////
+	//Player 2 enters ships//
 	if (option == '1') {
 		defaultPlacementConfig(player2Board, MAX_ROWS, SMALL_SHIP_LENGHT, MEDIUM_SHIP_LENGHT, LARGE_SHIP_LENGHT, MEGA_SHIP_LENGHT);
 		centerFromSide(center);
@@ -924,9 +939,7 @@ int main() {
 
 		} while (true);
 	}
-	//attacking phase///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//Attacking phase///
 	centerFromTop();
 	centerFromSide(center);
 	cout << "Congratulations!You've reached the attacking phase.Try to  take down all oponent's ships\n";
@@ -936,7 +949,7 @@ int main() {
 	do {
 		player1Turn = true;
 		player2Turn = true;
-		if (GameWon) {
+		if (GameWon == true) {
 			break;
 		}
 		do {
@@ -969,13 +982,12 @@ int main() {
 				cout << "Congratulations Player 1.You have won the game\n";
 				centerFromSide(center);
 				system("pause");
-				bool GameWon = 1;
+				 GameWon = true;
 				break;
 			}
-			
-			
-		} while(player1Turn);
-		if (GameWon) {
+		}while(player1Turn);
+
+		if (GameWon == true) {
 			break;
 		}
 		do {
@@ -1005,7 +1017,7 @@ int main() {
 				centerFromSide(center);
 				cout << "Congratulations Player 2.You have won the game\n";
 				system("pause");
-				bool GameWon = 1;
+				 GameWon = true;
 				break;
 			}
 		} while (player2Turn);
@@ -1014,7 +1026,7 @@ int main() {
 	centerFromTop();
 	centerFromSide(center);
 	cout << "That was the end of the game.Thanks for playing\n";
+	centerFromSide(center);
+	system("pause");
 	return 0;
-
-	//validate input for coordinates
 }  
