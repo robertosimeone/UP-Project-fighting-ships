@@ -1,1 +1,2 @@
-# UP-Project-fighting-ships
+#UP-Project-fighting-ships
+Fighting ship game
