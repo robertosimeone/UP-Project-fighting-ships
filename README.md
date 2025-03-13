@@ -3,6 +3,7 @@
 Fighting ship game
 # Hello
 # hah
+line6
 # merge conflict here
 #from test3brannch
 # no typo here, just testing stuff
